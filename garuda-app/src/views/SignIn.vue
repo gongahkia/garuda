@@ -1,5 +1,5 @@
 <script setup>
-import { SignIn, useAuth } from '@clerk/vue'; // Added useAuth
+import { SignIn, useAuth } from '@clerk/vue'; 
 import { onMounted, watch } from 'vue';
 import { useRouter } from 'vue-router';
 import '../assets/main.css';
@@ -7,7 +7,6 @@ import '../assets/main.css';
 const router = useRouter();
 const { isSignedIn, isLoaded } = useAuth();
 
-// Redirect if already signed in
 watch([isSignedIn, isLoaded], ([signedIn, loaded]) => {
   if (loaded && signedIn) {
     router.push('/');
@@ -22,14 +21,12 @@ watch([isSignedIn, isLoaded], ([signedIn, loaded]) => {
       <h1>Garuda</h1>
     </div>
     
-    <!-- Only show SignIn component when NOT authenticated -->
     <SignIn 
       v-if="!isSignedIn"
       :signUpUrl="'/sign-up'" 
       :forceRedirectUrl="'/'"
     />
     
-    <!-- Show loading state if already authenticated -->
     <div v-else class="loading-state">
       <div class="loader"></div>
       <p>Redirecting to dashboard...</p>
@@ -38,7 +35,6 @@ watch([isSignedIn, isLoaded], ([signedIn, loaded]) => {
 </template>
 
 <style scoped>
-/* Your existing styles remain the same */
 
 .loading-state {
   display: flex;

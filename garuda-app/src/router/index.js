@@ -17,7 +17,7 @@ const routes = [
   },
   {
     path: '/',
-    component: App,  // Now matches import
+    component: App,  
     meta: { requiresAuth: true }
   }
 ]
@@ -27,11 +27,10 @@ const router = createRouter({
   routes
 })
 
-// Update navigation guard
 router.beforeEach((to) => {
   const { isSignedIn, isLoaded } = useAuth()
   
-  if (!isLoaded.value) return // Wait for auth to initialize
+  if (!isLoaded.value) return 
   
   if (to.meta.requiresAuth && !isSignedIn.value) {
     return { name: 'SignIn' }
