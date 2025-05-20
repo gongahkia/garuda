@@ -54,7 +54,7 @@ const currentLocation = computed(() =>
     <div class="header-content">
       <img alt="Garuda logo" class="logo" src="./../garuda.png" width="50" height="50" />
       <div class="header-info">
-        <h1 class="app-title">Garuda</h1>
+        <h1 class="app-title">ガルーダ</h1>
       </div>
     </div>
   </header>
@@ -94,7 +94,9 @@ const currentLocation = computed(() =>
 </template>
 
 <style scoped lang="scss">
+
 .app-header {
+  font-family: 'Cherry Bomb One', cursive;
   background: var(--color-header-bg);
   border-bottom: 1px solid var(--color-border);
   padding: 0 1.5rem;
@@ -121,7 +123,7 @@ const currentLocation = computed(() =>
   }
 
   .app-title {
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: 600;
     color: var(--color-text);
     margin: 0;
@@ -136,27 +138,28 @@ const currentLocation = computed(() =>
 }
 
 .sidebar {
-  border-right: 1px solid var(--color-border);
+  font-family: 'Roboto', Arial, sans-serif;
+  right: 1px solid var(--color-border);
   background: var(--color-sidebar-bg);
   padding: 1rem;
   overflow-y: auto;
 }
 
 .map-container {
+  font-family: 'Roboto', Arial, sans-serif;
   background: var(--color-bg);
   position: relative;
   border-left: 1px solid var(--color-border);
 }
 
 .app-footer {
+  font-family: 'Roboto', Arial, sans-serif;
   background: var(--color-header-bg);
   border-top: 1px solid var(--color-border);
   text-align: center;
-  padding: 1.25rem 0;
   font-size: 1rem;
   letter-spacing: 0.01em;
   width: 100%;
-  min-height: 56px;
   display: flex;
   align-items: center;
   justify-content: center;

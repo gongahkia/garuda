@@ -104,6 +104,7 @@ export default {
 </script>
 
 <style scoped lang="scss">
+
 .map-container {
   position: relative;
   height: 100%;

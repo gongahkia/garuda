@@ -7,6 +7,14 @@
   font-weight: normal;
 }
 
+body {
+  font-family: 'Roboto', Arial, sans-serif;
+}
+
+.japanese-fun {
+  font-family: 'Cherry Bomb One', 'Noto Sans JP', 'Hiragino Sans', 'Meiryo', sans-serif;
+}
+
 a,
 .green {
   text-decoration: none;
