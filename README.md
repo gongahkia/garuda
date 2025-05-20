@@ -18,10 +18,28 @@ First create a [Google Developer Account](https://developers.google.com/).
 
 Then [set up your Clerk account](https://clerk.com/docs/quickstarts/setup-clerk).
 
-Next, ...
+Next, create an `.env` file with the following.
+
+```env
+VITE_GOOGLE_MAPS_API_KEY=XXX
+VITE_CLERK_PUBLISHABLE_KEY=XXX
+```
+
+Also create an `.env.local` file with the following.
+
+```env
+VITE_CLERK_SIGN_IN_URL=/sign-in
+VITE_CLERK_SIGN_UP_URL=/sign-up
+VITE_CLERK_AFTER_SIGN_IN_URL=/
+VITE_CLERK_AFTER_SIGN_UP_URL=/
+```
+
+Then run the below.
 
 ```console
-$ ...
+$ git clone github.com/gongahkia/garuda
+$ cd gardua-app
+$ npm run dev
 ```
 
 ## Screenshots
@@ -61,4 +79,4 @@ The name `Garuda` is in reference to [Garuda](https://jujutsu-kaisen.fandom.com/
 
 ## Other notes
 
-I focused quite a bit more on `Garuda`'s [styling](#screenshots) this time, an area I've [historically been weak at]().
+I focused quite a bit on `Garuda`'s [styling](#screenshots) this time, an area I've [historically been weak]() at.
