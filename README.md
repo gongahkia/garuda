@@ -2,15 +2,42 @@
 
 # `Garuda`
 
-...
+*"We have [Wanderlog](https://wanderlog.com) at home"*, featuring [user accounts](#login-main-dashboard-add-locations), [dynamic ordering](#reorder-locations-pin-location-delete-location) and [itinerary management](#add-location-notes-edit-notes-cycle-through-locations).
+
+Made to teach myself to work with [vue-google-maps](https://github.com/fawmi/vue-google-maps) and [Google Maps Platform API](https://developers.google.com/maps/documentation/javascript/get-api-key).
 
 ## Stack
 
 * *Frontend*: [Vue.js](https://vuejs.org/)
-* *Backend*: [Laravel](https://laravel.com/), [PHP](https://www.php.net/)
 * *DB*: [Firebase Realtime Database](https://firebase.google.com/docs/database)
 * *Auth*: [Clerk](https://clerk.com/)
 * *API*: [Google Maps Platform API](https://developers.google.com/maps)
+
+## Screenshots
+
+### Login, Main Dashboard, Add Locations
+
+<div style="display: flex; justify-content: space-between;">
+  <img src="./asset/reference/1.png" width="32%">
+  <img src="./asset/reference/2.png" width="32%">
+  <img src="./asset/reference/3.png" width="32%">
+</div>
+
+### Add Location Notes, Edit notes, Cycle through Locations
+
+<div style="display: flex; justify-content: space-between;">
+  <img src="./asset/reference/4.png" width="32%">
+  <img src="./asset/reference/6.png" width="32%">
+  <img src="./asset/reference/7.png" width="32%">
+</div>
+
+### Reorder Locations, Pin Location, Delete Location
+
+<div style="display: flex; justify-content: space-between;">
+  <img src="./asset/reference/5.png" width="32%">
+  <img src="./asset/reference/8.png" width="32%">
+  <img src="./asset/reference/9.png" width="32%">
+</div>
 
 ## Usage
 
@@ -39,35 +66,84 @@ Then run the below.
 ```console
 $ git clone github.com/gongahkia/garuda
 $ cd gardua-app
-$ npm run dev
+$ npm i && npm run dev
 ```
-
-## Screenshots
-
-<div style="display: flex; justify-content: space-between;">
-  <img src="./1.png" width="32%">
-  <img src="./2.png" width="32%">
-  <img src="./3.png" width="32%">
-</div>
-
-<br>
-
-<div style="display: flex; justify-content: space-between;">
-  <img src="./4.png" width="32%">
-  <img src="./5.png" width="32%">
-  <img src="./6.png" width="32%">
-</div>
 
 ## Architecture
 
 ### Overview
 
-![](./asset/reference/architecture.jpg)
+```mermaid
+sequenceDiagram
+    actor User
+    participant VueFrontend as Vue.js Frontend
+    participant ClerkAuth as Clerk Authentication
+    participant FirebaseDB as Firebase Realtime DB
+    participant GoogleMaps as Google Maps API
+
+    User->>VueFrontend: Access Garuda web app
+    VueFrontend->>ClerkAuth: Redirect to login/signup
+    ClerkAuth-->>User: Show authentication UI
+    User->>ClerkAuth: Submit credentials
+    ClerkAuth-->>VueFrontend: Return authentication token
+    VueFrontend->>FirebaseDB: Fetch user data (with token)
+    FirebaseDB-->>VueFrontend: Return user data
+
+    loop Trip Planning
+        User->>VueFrontend: Add/Edit trip details
+        VueFrontend->>GoogleMaps: Request geocoding/map data
+        GoogleMaps-->>VueFrontend: Return map data
+        VueFrontend->>FirebaseDB: Save/update trip data
+        FirebaseDB-->>VueFrontend: Confirm save/update
+    end
+
+    FirebaseDB-->>VueFrontend: Push real-time updates
+    VueFrontend->>User: Display updated trips and maps
+```
 
 ### DB
 
-```mermaid
-...
+```json
+{
+  "users": {
+    "clerkUserId": {
+      "profile": {
+        "email": "string",
+        "displayName": "string",
+        "photoURL": "string | null"
+      },
+      "trips": {
+        "tripId": true
+      }
+    }
+  },
+  
+  "trips": {
+    "tripId": {
+      "metadata": {
+        "title": "string",
+        "startDate": "ISO8601",
+        "endDate": "ISO8601",
+        "collaborators": {
+          "clerkAuthId": true
+        }
+      }
+    }
+  },
+
+  "locations": {
+    "loc": {
+      "placeId": "string (Google Places ID)",
+      "name": "string",
+      "coordinates": {
+        "lat": "number",
+        "lng": "number"
+      },
+      "note": "string",
+      "order": "number"
+    }
+  }
+}
 ```
 
 ## Reference
