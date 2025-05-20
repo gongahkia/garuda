@@ -12,13 +12,23 @@ const mapZoom = ref(12);
 const totalLocations = computed(() => locations.value.length);
 
 const addLocation = (newLocation) => {
-  locations.value = [...locations.value, newLocation];
-  currentLocationIndex.value = locations.value.length - 1;
-};
+  locations.value = [...locations.value, {
+    ...newLocation,
+    tags: [],
+    notes: '',
+    createdAt: new Date().toISOString()
+  }]
+}
 
 const reorderLocations = (newOrder) => {
   locations.value = newOrder;
 };
+
+const updateLocation = (updatedLocation) => {
+  locations.value = locations.value.map(loc => 
+    loc.id === updatedLocation.id ? updatedLocation : loc
+  )
+}
 
 const deleteLocation = (id) => {
   locations.value = locations.value.filter(loc => loc.id !== id);
@@ -74,6 +84,7 @@ const currentLocation = computed(() =>
         :zoom="mapZoom"
         @add-location="addLocation"
         @center-changed="newCenter => mapCenter = newCenter"
+        @update-location="updateLocation"
       />
     </div>
   </main>
