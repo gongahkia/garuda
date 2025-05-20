@@ -16,6 +16,10 @@ const addLocation = (newLocation) => {
   currentLocationIndex.value = locations.value.length - 1;
 };
 
+const reorderLocations = (newOrder) => {
+  locations.value = newOrder;
+};
+
 const deleteLocation = (id) => {
   locations.value = locations.value.filter(loc => loc.id !== id);
   currentLocationIndex.value = Math.min(
