@@ -51,23 +51,26 @@ const currentLocation = computed(() =>
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./../garuda.png" width="125" height="125" />
-    <div class="title">
-      <h1>Garuda</h1>
-      <p>Made with ❤️ by <a href="gabrielongzm.com">Gabriel Ong</a></p>
-      <p>Source code <a href="https://github.com/gongahkia/garuda">here</a>.</p>
-      <NavigationControls
-        :current-index="currentLocationIndex"
-        :total="totalLocations"
-        @prev="navigateTo(currentLocationIndex - 1)"
-        @next="navigateTo(currentLocationIndex + 1)"
-      />
+  <header class="app-header">
+    <div class="header-content">
+      <img alt="Garuda logo" class="logo" src="./../garuda.png" width="50" height="50" />
+      <div class="header-info">
+        <h1 class="app-title">Garuda</h1>
+      </div>
     </div>
   </header>
 
-  <main class="app-main">
+  <!-- Navigation Controls Bar -->
+  <nav class="nav-controls-bar">
+    <NavigationControls
+      :current-index="currentLocationIndex"
+      :total="totalLocations"
+      @prev="navigateTo(currentLocationIndex - 1)"
+      @next="navigateTo(currentLocationIndex + 1)"
+    />
+  </nav>
 
+  <main class="app-main">
     <LocationList
       class="sidebar"
       :locations="locations"
@@ -76,8 +79,7 @@ const currentLocation = computed(() =>
       @reorder="reorderLocations"
     />
 
-    
-    <div class="map-wrapper">
+    <div class="map-container">
       <MapComponent
         :locations="locations"
         :center="currentLocation"
@@ -88,25 +90,122 @@ const currentLocation = computed(() =>
       />
     </div>
   </main>
+
+  <footer class="app-footer">
+    <span>
+      Made with <span class="footer-heart">❤️</span> by
+      <a href="https://gabrielongzm.com" class="footer-link" target="_blank" rel="noopener">Gabriel Ong</a>.
+      &nbsp;|&nbsp;
+      Source code <a href="https://github.com/gongahkia/garuda" class="footer-link" target="_blank" rel="noopener">here</a>.
+    </span>
+  </footer>
 </template>
 
-<style>
+<style scoped lang="scss">
+.app-header {
+  background: var(--color-header-bg);
+  border-bottom: 1px solid var(--color-border);
+  padding: 0 1.5rem;
+  height: 60px;
+  display: flex;
+  align-items: center;
+
+  .header-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    max-width: 1400px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .logo {
+    border-radius: 6px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  }
+
+  .header-info {
+    flex-grow: 1;
+  }
+
+  .app-title {
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0;
+  }
+}
+
+/* Navigation Controls Bar */
+.nav-controls-bar {
+  background: var(--color-sidebar-bg);
+  border-bottom: 1px solid var(--color-border);
+  padding: 0.5rem 1.5rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  min-height: 48px;
+}
+
 .app-main {
   display: grid;
   grid-template-columns: 300px 1fr;
-  height: calc(100vh - 160px);
+  height: calc(100vh - 60px - 56px - 48px); // header + footer + nav-controls-bar
+  background: var(--color-bg);
 }
 
 .sidebar {
-  border-right: 1px solid #ddd;
+  border-right: 1px solid var(--color-border);
+  background: var(--color-sidebar-bg);
+  padding: 1rem;
+  overflow-y: auto;
 }
 
-.map-wrapper {
-  height: 100%;
+.map-container {
+  background: var(--color-bg);
   position: relative;
+  border-left: 1px solid var(--color-border);
 }
 
-.title {
-  flex-grow: 1;
+.app-footer {
+  background: var(--color-header-bg);
+  border-top: 1px solid var(--color-border);
+  text-align: center;
+  padding: 1.25rem 0;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+  width: 100%;
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .footer-link {
+    color: #58a6ff;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #79c0ff;
+      text-decoration: underline;
+    }
+  }
+
+  .footer-heart {
+    color: #f85149;
+    font-size: 1.1em;
+    vertical-align: middle;
+  }
+}
+
+:root {
+  --color-header-bg: #24292f;
+  --color-bg: #ffffff;
+  --color-sidebar-bg: #f6f8fa;
+  --color-text: #1f2328;
+  --color-text-secondary: #656d76;
+  --color-border: #d0d7de;
+  --color-icon: #57606a;
 }
 </style>

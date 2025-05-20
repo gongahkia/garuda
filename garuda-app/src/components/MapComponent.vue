@@ -72,3 +72,36 @@ export default {
   }
 };
 </script>
+
+<style scoped lang="scss">
+.search-bar {
+  width: 100%;
+  max-width: 400px;
+  margin: 1rem 0;
+  display: block;
+  padding: 0.75rem 1.25rem;
+  font-size: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  background: var(--color-sidebar-bg);
+  color: var(--color-text);
+  transition: all 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+
+  &:focus {
+    outline: none;
+    border-color: var(--color-icon);
+    box-shadow: 0 0 0 3px rgba(88,166,255,0.1);
+  }
+
+  &::placeholder {
+    color: var(--color-text-secondary);
+    opacity: 0.8;
+  }
+}
+
+.map-container {
+  position: relative;
+  height: 100%;
+}
+</style>
