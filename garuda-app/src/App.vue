@@ -87,7 +87,7 @@ const currentLocation = computed(() =>
     <span>
       Made with <span class="footer-heart">❤️</span> by
       <a href="https://gabrielongzm.com" class="footer-link" target="_blank" rel="noopener">Gabriel Ong</a>.
-      &nbsp;|&nbsp;
+      &nbsp;•&nbsp;
       Source code <a href="https://github.com/gongahkia/garuda" class="footer-link" target="_blank" rel="noopener">here</a>.
     </span>
   </footer>
