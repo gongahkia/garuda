@@ -212,7 +212,9 @@ export default defineComponent({
 .location-index {
   color: var(--color-text-secondary);
   font-weight: 500;
-  font-size: 1em;
+  font-size: 2em;
+  font-family: 'Exile', Arial, sans-serif;
+  margin-right: 0.5rem;
 }
 
 .location-name {
