@@ -1,16 +1,25 @@
+[![](https://img.shields.io/badge/garuda_1.0.0-passing-green)](https://github.com/gongahkia/garuda/releases/tag/1.0.0) 
+
 # `Garuda`
 
 ...
 
-## Usage
-
-```console
-...
-```
-
 ## Stack
 
-...
+* *Frontend*:
+* *Backend*:
+* *DB*: 
+* *API*:
+
+## Usage
+
+First create a [Google Developer Account](https://developers.google.com/).
+
+Then ...
+
+```console
+$ ...
+```
 
 ## Architecture
 
