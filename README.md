@@ -163,5 +163,5 @@ The name `Garuda` is in reference to [Garuda](https://jujutsu-kaisen.fandom.com/
 I focused quite a bit on `Garuda`'s [styling](#screenshots) this time, an area I've historically been weak at.
 
 <div align="center">
-  <img src="./asset/logo/pill.webp" width="25%">
+  <img src="./asset/logo/pill.webp" width="35%">
 </div>
