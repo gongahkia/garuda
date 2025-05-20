@@ -65,7 +65,7 @@ Then run the below.
 
 ```console
 $ git clone github.com/gongahkia/garuda
-$ cd gardua-app
+$ cd garuda-app
 $ npm i && npm run dev
 ```
 
@@ -155,4 +155,4 @@ The name `Garuda` is in reference to [Garuda](https://jujutsu-kaisen.fandom.com/
 
 ## Other notes
 
-I focused quite a bit on `Garuda`'s [styling](#screenshots) this time, an area I've [historically been weak]() at.
+I focused quite a bit on `Garuda`'s [styling](#screenshots) this time, an area I've [historically been weak](./asset/logo/pill.webp) at.
