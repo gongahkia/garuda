@@ -22,3 +22,6 @@ cypress/screenshots/
 *.sln
 *.sw?
 *.tsbuildinfo
+.env
+__pycache__
+myenv
