@@ -57,12 +57,15 @@ const currentLocation = computed(() =>
   </header>
 
   <main class="app-main">
+
     <LocationList
       class="sidebar"
       :locations="locations"
       @navigate-to="loc => navigateTo(locations.indexOf(loc))"
       @delete-location="deleteLocation"
+      @reorder="reorderLocations"
     />
+
     
     <div class="map-wrapper">
       <MapComponent
