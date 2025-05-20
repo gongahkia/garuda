@@ -38,9 +38,11 @@ const currentLocation = computed(() =>
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
+    <img alt="Vue logo" class="logo" src="./../garuda.png" width="125" height="125" />
     <div class="title">
-      <h1>Garuda Location Manager</h1>
+      <h1>Garuda</h1>
+      <p>Made with ❤️ by <a href="gabrielongzm.com">Gabriel Ong</a></p>
+      <p>Source code <a href="https://github.com/gongahkia/garuda">here</a>.</p>
       <NavigationControls
         :current-index="currentLocationIndex"
         :total="totalLocations"
