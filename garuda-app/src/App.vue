@@ -2,7 +2,6 @@
 import { ref, computed } from 'vue';
 import MapComponent from './components/MapComponent.vue';
 import LocationList from './components/LocationList.vue';
-import NavigationControls from './components/NavigationControls.vue';
 
 const locations = ref([]);
 const currentLocationIndex = ref(-1);
@@ -60,16 +59,6 @@ const currentLocation = computed(() =>
     </div>
   </header>
 
-  <!-- Navigation Controls Bar -->
-  <nav class="nav-controls-bar">
-    <NavigationControls
-      :current-index="currentLocationIndex"
-      :total="totalLocations"
-      @prev="navigateTo(currentLocationIndex - 1)"
-      @next="navigateTo(currentLocationIndex + 1)"
-    />
-  </nav>
-
   <main class="app-main">
     <LocationList
       class="sidebar"
@@ -84,9 +73,12 @@ const currentLocation = computed(() =>
         :locations="locations"
         :center="currentLocation"
         :zoom="mapZoom"
+        :current-index="currentLocationIndex"
         @add-location="addLocation"
         @center-changed="newCenter => mapCenter = newCenter"
         @update-location="updateLocation"
+        @prev="navigateTo(currentLocationIndex - 1)"
+        @next="navigateTo(currentLocationIndex + 1)"
       />
     </div>
   </main>
@@ -136,21 +128,10 @@ const currentLocation = computed(() =>
   }
 }
 
-/* Navigation Controls Bar */
-.nav-controls-bar {
-  background: var(--color-sidebar-bg);
-  border-bottom: 1px solid var(--color-border);
-  padding: 0.5rem 1.5rem;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  min-height: 48px;
-}
-
 .app-main {
   display: grid;
   grid-template-columns: 300px 1fr;
-  height: calc(100vh - 60px - 56px - 48px); // header + footer + nav-controls-bar
+  height: calc(100vh - 60px - 56px); // header + footer
   background: var(--color-bg);
 }
 
