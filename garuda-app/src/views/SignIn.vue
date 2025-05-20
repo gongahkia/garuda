@@ -18,7 +18,7 @@ watch([isSignedIn, isLoaded], ([signedIn, loaded]) => {
 <template>
   <div v-if="isLoaded" class="auth-container">
     <div class="logo-container">
-      <img src="../../public/garuda.png" alt="Garuda Logo" />
+      <img src="/garuda.png" alt="Garuda Logo" />
       <h1>Garuda</h1>
     </div>
     

@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuth } from '@clerk/vue'
+import App from '../App.vue'
 import SignIn from '../views/SignIn.vue'
 import SignUp from '../views/SignUp.vue'
-import App from '../App.vue'  // Rename import to match usage
 
 const routes = [
   {

@@ -6,7 +6,7 @@ import '../assets/main.css';
 <template>
   <div class="auth-container">
     <div class="logo-container">
-      <img src="../../public/garuda.png" alt="Garuda Logo" />
+      <img src="/garuda.png" alt="Garuda Logo" />
       <h1>Garuda</h1>
     </div>
     <SignUp 
@@ -17,7 +17,6 @@ import '../assets/main.css';
 </template>
 
 <style scoped>
-/* Same styling as SignIn.vue */
 .auth-container {
   display: flex;
   flex-direction: column;

@@ -1,19 +1,13 @@
 <script setup>
 import { ref, computed } from 'vue';
-import { useAuth, SignOutButton } from '@clerk/vue'; // Added Clerk imports
 import MapComponent from './components/MapComponent.vue';
 import LocationList from './components/LocationList.vue';
 
-// Clerk authentication state
-const { isSignedIn, user } = useAuth();
-
-// Existing location state management
 const locations = ref([]);
 const currentLocationIndex = ref(-1);
 const mapCenter = ref({ lat: 51.5074, lng: -0.1278 });
 const mapZoom = ref(12);
 
-// Existing computed properties and methods
 const totalLocations = computed(() => locations.value.length);
 
 const addLocation = (newLocation) => {
@@ -23,7 +17,7 @@ const addLocation = (newLocation) => {
     notes: '',
     createdAt: new Date().toISOString()
   }]
-};
+}
 
 const reorderLocations = (newOrder) => {
   locations.value = newOrder;
@@ -32,8 +26,8 @@ const reorderLocations = (newOrder) => {
 const updateLocation = (updatedLocation) => {
   locations.value = locations.value.map(loc => 
     loc.id === updatedLocation.id ? updatedLocation : loc
-  );
-};
+  )
+}
 
 const deleteLocation = (id) => {
   locations.value = locations.value.filter(loc => loc.id !== id);
@@ -56,23 +50,11 @@ const currentLocation = computed(() =>
 </script>
 
 <template>
-
   <header class="app-header">
     <div class="header-content">
       <img alt="Garuda logo" class="logo" src="./../garuda.png" width="50" height="50" />
       <div class="header-info">
         <h1 class="app-title">ガルーダ</h1>
-      </div>
-      <div class="user-controls">
-        <template v-if="isSignedIn">
-          <span class="user-greeting">
-            {{ user?.firstName || user?.emailAddresses[0]?.emailAddress }}
-          </span>
-          <SignOutButton class="sign-out-button" redirectUrl="/sign-in" />
-        </template>
-        <template v-else>
-          <span style="width: 120px; display: inline-block;"></span>
-        </template>
       </div>
     </div>
   </header>
@@ -112,6 +94,7 @@ const currentLocation = computed(() =>
 </template>
 
 <style scoped lang="scss">
+
 .app-header {
   font-family: 'Cherry Bomb One', cursive;
   background: var(--color-header-bg);
@@ -145,33 +128,6 @@ const currentLocation = computed(() =>
     color: var(--color-text);
     margin: 0;
   }
-
-  // Added user controls styling
-  .user-controls {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    
-    .user-greeting {
-      font-family: 'Roboto', sans-serif;
-      color: var(--color-text);
-      font-size: 1rem;
-    }
-
-    .sign-out-button {
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid var(--color-border);
-      border-radius: 4px;
-      padding: 6px 12px;
-      color: var(--color-text);
-      cursor: pointer;
-      transition: all 0.2s ease;
-
-      &:hover {
-        background: rgba(255, 255, 255, 0.2);
-      }
-    }
-  }
 }
 
 .app-main {
@@ -183,7 +139,7 @@ const currentLocation = computed(() =>
 
 .sidebar {
   font-family: 'Roboto', Arial, sans-serif;
-  border-right: 1px solid var(--color-border);
+  right: 1px solid var(--color-border);
   background: var(--color-sidebar-bg);
   padding: 1rem;
   overflow-y: auto;
