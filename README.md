@@ -6,16 +6,19 @@
 
 ## Stack
 
-* *Frontend*:
-* *Backend*:
-* *DB*: 
-* *API*:
+* *Frontend*: [Vue.js](https://vuejs.org/)
+* *Backend*: [Laravel](https://laravel.com/), [PHP](https://www.php.net/)
+* *DB*: [Firebase Realtime Database](https://firebase.google.com/docs/database)
+* *Auth*: [Clerk](https://clerk.com/)
+* *API*: [Google Maps Platform API](https://developers.google.com/maps)
 
 ## Usage
 
 First create a [Google Developer Account](https://developers.google.com/).
 
-Then ...
+Then [set up your Clerk account](https://clerk.com/docs/quickstarts/setup-clerk).
+
+Next, ...
 
 ```console
 $ ...
