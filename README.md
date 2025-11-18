@@ -43,43 +43,32 @@ Made to teach myself to work with [vue-google-maps](https://github.com/fawmi/vue
 
 ## Usage
 
-### Prerequisites
+The below instructions are for locally hosting `garuda`.
 
-Set up accounts and obtain API keys for the following services:
+1. First set up accounts and obtain API keys for the following services.
 
-1. **[Google Developer Account](https://developers.google.com/)** - For Google Maps Platform API
-2. **[Clerk](https://clerk.com/docs/quickstarts/setup-clerk)** - For authentication
-3. **[Firebase](https://firebase.google.com/)** - For Realtime Database
-4. **[OpenAI Platform](https://platform.openai.com/api-keys)** - For AI Visual Trip Planner (GPT-4o)
-5. **[Supabase](https://supabase.com/)** - For real-time collaborative features
+    1. *[Google Developer Account](https://developers.google.com/)*: For Google Maps Platform API
+    2. *[Clerk](https://clerk.com/docs/quickstarts/setup-clerk)*: For authentication
+    3. *[Firebase](https://firebase.google.com/)*: For Realtime Database
+    4. *[OpenAI Platform](https://platform.openai.com/api-keys)*: For AI Visual Trip Planner (GPT-4o)
+    5. *[Supabase](https://supabase.com/)*: For real-time collaborative features
 
-### Configuration
-
-Next, create a `.env` file in the `garuda-app` directory with the following.
+2. Then create a `.env` file in the `garuda-app` directory with the following.
 
 ```env
-# Google Maps API
 VITE_GOOGLE_MAPS_API_KEY=your_google_maps_api_key_here
-
-# Clerk Authentication
 VITE_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key_here
-
-# Firebase
 VITE_FIREBASE_API_KEY=your_firebase_api_key_here
 VITE_FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain_here
 VITE_FIREBASE_DATABASE_URL=your_firebase_database_url_here
 VITE_FIREBASE_PROJECT_ID=your_firebase_project_id_here
 VITE_FIREBASE_APP_ID=your_firebase_app_id_here
-
-# OpenAI API (for AI Visual Trip Planner)
 VITE_OPENAI_API_KEY=your_openai_api_key_here
-
-# Supabase (for Real-time Collaborative Cursors)
 VITE_SUPABASE_URL=your_supabase_url_here
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key_here
 ```
 
-Also create an `.env.local` file in the `garuda-app` directory with the following.
+3. Also create an `.env.local` file in the `garuda-app` directory with the following.
 
 ```env
 VITE_CLERK_SIGN_IN_URL=/sign-in
@@ -88,27 +77,11 @@ VITE_CLERK_AFTER_SIGN_IN_URL=/
 VITE_CLERK_AFTER_SIGN_UP_URL=/
 ```
 
-### Installation & Running
-
-Clone the repository and install dependencies:
+4. Then execute the below.
 
 ```console
-$ git clone https://github.com/gongahkia/garuda
-$ cd garuda/garuda-app
-$ npm install
-```
-
-Start the development server:
-
-```console
+$ git clone https://github.com/gongahkia/garuda && cd garuda/garuda-app && npm install
 $ npm run dev
-```
-
-The application will be available at `http://localhost:5173/`.
-
-### Building for Production
-
-```console
 $ npm run build
 $ npm run preview
 ```
@@ -221,7 +194,7 @@ sequenceDiagram
 }
 ```
 
-#### Supabase Realtime (Presence Channels)
+#### Supabase Realtime
 
 ```typescript
 {
