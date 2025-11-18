@@ -11,12 +11,17 @@
   "dependencies": {
     "@clerk/vue": "^1.8.2",
     "@fawmi/vue-google-maps": "0.9.67",
+    "@supabase/supabase-js": "^2.81.1",
+    "axios": "^1.13.2",
     "cors": "^2.8.5",
+    "openai": "^6.9.1",
     "sass-embedded": "^1.89.0",
     "vue": "^3.5.13",
     "vue-feather-icons": "^5.1.0",
     "vue-router": "^4.5.1",
-    "vuedraggable": "^4.1.0"
+    "vuedraggable": "^4.1.0",
+    "y-websocket": "^3.0.0",
+    "yjs": "^13.6.27"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.2.3",
