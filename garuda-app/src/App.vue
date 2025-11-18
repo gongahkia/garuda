@@ -5,6 +5,7 @@ import LocationList from './components/LocationList.vue';
 import AIVisualPlanner from './components/AIVisualPlanner.vue';
 import CollaborativeCursor from './components/CollaborativeCursor.vue';
 import PresenceIndicator from './components/PresenceIndicator.vue';
+import RouteOptimizer from './components/RouteOptimizer.vue';
 
 const locations = ref([]);
 const currentLocationIndex = ref(-1);
@@ -62,9 +63,22 @@ const navigateTo = (index) => {
   }
 };
 
-const currentLocation = computed(() => 
+const currentLocation = computed(() =>
   locations.value[currentLocationIndex.value]?.position || mapCenter.value
 );
+
+const updateLocationsFromOptimizer = (optimizedLocations) => {
+  locations.value = optimizedLocations;
+  currentLocationIndex.value = 0;
+  if (optimizedLocations.length > 0) {
+    mapCenter.value = optimizedLocations[0].position;
+  }
+};
+
+const updateDirections = (directions) => {
+  // Store directions for map rendering if needed
+  console.log('Route directions updated:', directions);
+};
 </script>
 
 <template>
@@ -96,6 +110,12 @@ const currentLocation = computed(() =>
     <div class="map-container">
       <div class="map-content">
         <AIVisualPlanner @add-locations="addMultipleLocations" />
+
+        <RouteOptimizer
+          :locations="locations"
+          @update-locations="updateLocationsFromOptimizer"
+          @update-directions="updateDirections"
+        />
 
         <MapComponent
           :locations="locations"
