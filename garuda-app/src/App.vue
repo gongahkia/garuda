@@ -3,11 +3,20 @@ import { ref, computed } from 'vue';
 import MapComponent from './components/MapComponent.vue';
 import LocationList from './components/LocationList.vue';
 import AIVisualPlanner from './components/AIVisualPlanner.vue';
+import CollaborativeCursor from './components/CollaborativeCursor.vue';
+import PresenceIndicator from './components/PresenceIndicator.vue';
 
 const locations = ref([]);
 const currentLocationIndex = ref(-1);
 const mapCenter = ref({ lat: 51.5074, lng: -0.1278 });
 const mapZoom = ref(12);
+
+// Collaborative features
+const tripId = ref('default-trip-' + Date.now());
+const currentUser = ref({
+  id: 'user-' + Math.random().toString(36).substr(2, 9),
+  name: 'Guest User'
+});
 
 const totalLocations = computed(() => locations.value.length);
 
@@ -75,7 +84,14 @@ const currentLocation = computed(() =>
       @navigate-to="loc => navigateTo(locations.indexOf(loc))"
       @delete-location="deleteLocation"
       @reorder="reorderLocations"
-    />
+    >
+      <template #header>
+        <PresenceIndicator
+          :trip-id="tripId"
+          :current-user="currentUser"
+        />
+      </template>
+    </LocationList>
 
     <div class="map-container">
       <div class="map-content">
@@ -104,6 +120,12 @@ const currentLocation = computed(() =>
       Source code <a href="https://github.com/gongahkia/garuda" class="footer-link" target="_blank" rel="noopener">here</a>.
     </span>
   </footer>
+
+  <!-- Collaborative cursors overlay -->
+  <CollaborativeCursor
+    :trip-id="tripId"
+    :current-user="currentUser"
+  />
 </template>
 
 <style scoped lang="scss">

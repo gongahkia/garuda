@@ -1,5 +1,6 @@
 <template>
   <div class="location-list">
+    <slot name="header"></slot>
     <h3 class="list-title">Saved Locations ({{ locations.length }})</h3>
     <draggable 
       v-model="localLocations"
