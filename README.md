@@ -9,10 +9,11 @@ Made to teach myself to work with [vue-google-maps](https://github.com/fawmi/vue
 
 ## Stack
 
-* *Frontend*: [Vue.js](https://vuejs.org/)
-* *DB*: [Firebase Realtime Database](https://firebase.google.com/docs/database)
-* *Auth*: [Clerk](https://clerk.com/)
+* *Frontend*: [Vue.js](https://vuejs.org/), [Vite](https://vitejs.dev/), [@fawmi/vue-google-maps](https://github.com/fawmi/vue-google-maps)
 * *API*: [Google Maps Platform API](https://developers.google.com/maps)
+* *Auth*: [Clerk](https://clerk.com/)
+* *DB*: [Firebase Realtime Database](https://firebase.google.com/docs/database), [Supabase Realtime Database](https://supabase.com/docs/guides/realtime), [YJS](https://github.com/yjs/yjs)
+* *AI*: [OpenAI GPT-4o](https://platform.openai.com/docs/models/gpt-4o) 
 
 ## Screenshots
 
@@ -42,23 +43,43 @@ Made to teach myself to work with [vue-google-maps](https://github.com/fawmi/vue
 
 ## Usage
 
-First create a [Google Developer Account](https://developers.google.com/).
+### Prerequisites
 
-Then [set up your Clerk account](https://clerk.com/docs/quickstarts/setup-clerk).
+Set up accounts and obtain API keys for the following services:
 
-Next, create an `.env` file with the following.
+1. **[Google Developer Account](https://developers.google.com/)** - For Google Maps Platform API
+2. **[Clerk](https://clerk.com/docs/quickstarts/setup-clerk)** - For authentication
+3. **[Firebase](https://firebase.google.com/)** - For Realtime Database
+4. **[OpenAI Platform](https://platform.openai.com/api-keys)** - For AI Visual Trip Planner (GPT-4o)
+5. **[Supabase](https://supabase.com/)** - For real-time collaborative features
+
+### Configuration
+
+Next, create a `.env` file in the `garuda-app` directory with the following.
 
 ```env
-VITE_GOOGLE_MAPS_API_KEY=XXX
-VITE_CLERK_PUBLISHABLE_KEY=XXX
-VITE_FIREBASE_API_KEY=XXX
-VITE_FIREBASE_AUTH_DOMAIN=XXX
-VITE_FIREBASE_DATABASE_URL=XXX
-VITE_FIREBASE_PROJECT_ID=XXX
-VITE_FIREBASE_APP_ID=XXX
+# Google Maps API
+VITE_GOOGLE_MAPS_API_KEY=your_google_maps_api_key_here
+
+# Clerk Authentication
+VITE_CLERK_PUBLISHABLE_KEY=your_clerk_publishable_key_here
+
+# Firebase
+VITE_FIREBASE_API_KEY=your_firebase_api_key_here
+VITE_FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain_here
+VITE_FIREBASE_DATABASE_URL=your_firebase_database_url_here
+VITE_FIREBASE_PROJECT_ID=your_firebase_project_id_here
+VITE_FIREBASE_APP_ID=your_firebase_app_id_here
+
+# OpenAI API (for AI Visual Trip Planner)
+VITE_OPENAI_API_KEY=your_openai_api_key_here
+
+# Supabase (for Real-time Collaborative Cursors)
+VITE_SUPABASE_URL=your_supabase_url_here
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key_here
 ```
 
-Also create an `.env.local` file with the following.
+Also create an `.env.local` file in the `garuda-app` directory with the following.
 
 ```env
 VITE_CLERK_SIGN_IN_URL=/sign-in
@@ -67,12 +88,29 @@ VITE_CLERK_AFTER_SIGN_IN_URL=/
 VITE_CLERK_AFTER_SIGN_UP_URL=/
 ```
 
-Then run the below.
+### Installation & Running
+
+Clone the repository and install dependencies:
 
 ```console
-$ git clone github.com/gongahkia/garuda
-$ cd garuda-app
-$ npm i && npm run dev
+$ git clone https://github.com/gongahkia/garuda
+$ cd garuda/garuda-app
+$ npm install
+```
+
+Start the development server:
+
+```console
+$ npm run dev
+```
+
+The application will be available at `http://localhost:5173/`.
+
+### Building for Production
+
+```console
+$ npm run build
+$ npm run preview
 ```
 
 ## Architecture
@@ -85,7 +123,9 @@ sequenceDiagram
     participant VueFrontend as Vue.js Frontend
     participant ClerkAuth as Clerk Authentication
     participant FirebaseDB as Firebase Realtime DB
+    participant SupabaseRT as Supabase Realtime
     participant GoogleMaps as Google Maps API
+    participant OpenAI as OpenAI GPT-4o
 
     User->>VueFrontend: Access Garuda web app
     VueFrontend->>ClerkAuth: Redirect to login/signup
@@ -103,11 +143,30 @@ sequenceDiagram
         FirebaseDB-->>VueFrontend: Confirm save/update
     end
 
+    opt AI Visual Planning
+        User->>VueFrontend: Upload travel photos
+        VueFrontend->>OpenAI: Analyze images for locations
+        OpenAI-->>VueFrontend: Extract location data
+        VueFrontend->>GoogleMaps: Geocode extracted locations
+        GoogleMaps-->>VueFrontend: Return coordinates
+        VueFrontend->>VueFrontend: Add locations to trip
+    end
+
+    opt Collaborative Features
+        User->>VueFrontend: Join trip collaboration
+        VueFrontend->>SupabaseRT: Subscribe to presence channel
+        SupabaseRT-->>VueFrontend: Real-time cursor updates
+        VueFrontend->>SupabaseRT: Broadcast user actions
+        SupabaseRT-->>VueFrontend: Sync with collaborators
+    end
+
     FirebaseDB-->>VueFrontend: Push real-time updates
     VueFrontend->>User: Display updated trips and maps
 ```
 
-### DB
+### DB Schema
+
+#### Firebase Realtime Database
 
 ```json
 {
@@ -123,7 +182,7 @@ sequenceDiagram
       }
     }
   },
-  
+
   "trips": {
     "tripId": {
       "metadata": {
@@ -131,22 +190,52 @@ sequenceDiagram
         "startDate": "ISO8601",
         "endDate": "ISO8601",
         "collaborators": {
-          "clerkAuthId": true
+          "clerkUserId": true
+        }
+      },
+      "locations": {
+        "locationId": {
+          "id": "string",
+          "name": "string",
+          "position": {
+            "lat": "number",
+            "lng": "number"
+          },
+          "address": "string",
+          "type": "string",
+          "description": "string",
+          "notes": "string",
+          "tags": ["string"],
+          "metadata": {
+            "city": "string",
+            "country": "string",
+            "confidence": "high | medium | low",
+            "source": "manual | ai-vision | search"
+          },
+          "createdAt": "ISO8601",
+          "order": "number"
         }
       }
     }
-  },
+  }
+}
+```
 
-  "locations": {
-    "loc": {
-      "placeId": "string (Google Places ID)",
-      "name": "string",
-      "coordinates": {
-        "lat": "number",
-        "lng": "number"
+#### Supabase Realtime (Presence Channels)
+
+```typescript
+{
+  tripId: {
+    userId: {
+      id: "string",
+      name: "string",
+      avatar: "string | null",
+      color: "string (hex)",
+      cursor: {
+        x: "number",
+        y: "number"
       },
-      "note": "string",
-      "order": "number"
+      lastActive: "ISO8601"
     }
   }
 }
