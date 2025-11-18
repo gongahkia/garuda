@@ -85,7 +85,12 @@ const updateDirections = (directions) => {
 <template>
   <header class="app-header">
     <div class="header-content">
-      <img alt="Garuda logo" class="logo" src="./../garuda.png" width="50" height="50" />
+      <div class="logo-placeholder">
+        <svg width="50" height="50" viewBox="0 0 100 100" fill="none">
+          <circle cx="50" cy="50" r="45" fill="#58a6ff"/>
+          <path d="M50 20 L70 40 L60 40 L60 70 L40 70 L40 40 L30 40 Z" fill="white"/>
+        </svg>
+      </div>
       <div class="header-info">
         <h1 class="app-title">ガルーダ</h1>
       </div>
@@ -173,9 +178,10 @@ const updateDirections = (directions) => {
     margin: 0 auto;
   }
 
-  .logo {
-    border-radius: 6px;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  .logo-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .header-info {
