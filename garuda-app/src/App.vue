@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue';
 import MapComponent from './components/MapComponent.vue';
 import LocationList from './components/LocationList.vue';
+import AIVisualPlanner from './components/AIVisualPlanner.vue';
 
 const locations = ref([]);
 const currentLocationIndex = ref(-1);
@@ -13,10 +14,18 @@ const totalLocations = computed(() => locations.value.length);
 const addLocation = (newLocation) => {
   locations.value = [...locations.value, {
     ...newLocation,
-    tags: [],
-    notes: '',
-    createdAt: new Date().toISOString()
+    tags: newLocation.tags || [],
+    notes: newLocation.notes || '',
+    createdAt: newLocation.createdAt || new Date().toISOString()
   }]
+}
+
+const addMultipleLocations = (newLocations) => {
+  locations.value = [...locations.value, ...newLocations];
+  if (newLocations.length > 0 && newLocations[0].position) {
+    mapCenter.value = newLocations[0].position;
+    mapZoom.value = 12;
+  }
 }
 
 const reorderLocations = (newOrder) => {
@@ -69,17 +78,21 @@ const currentLocation = computed(() =>
     />
 
     <div class="map-container">
-      <MapComponent
-        :locations="locations"
-        :center="currentLocation"
-        :zoom="mapZoom"
-        :current-index="currentLocationIndex"
-        @add-location="addLocation"
-        @center-changed="newCenter => mapCenter = newCenter"
-        @update-location="updateLocation"
-        @prev="navigateTo(currentLocationIndex - 1)"
-        @next="navigateTo(currentLocationIndex + 1)"
-      />
+      <div class="map-content">
+        <AIVisualPlanner @add-locations="addMultipleLocations" />
+
+        <MapComponent
+          :locations="locations"
+          :center="currentLocation"
+          :zoom="mapZoom"
+          :current-index="currentLocationIndex"
+          @add-location="addLocation"
+          @center-changed="newCenter => mapCenter = newCenter"
+          @update-location="updateLocation"
+          @prev="navigateTo(currentLocationIndex - 1)"
+          @next="navigateTo(currentLocationIndex + 1)"
+        />
+      </div>
     </div>
   </main>
 
@@ -150,6 +163,11 @@ const currentLocation = computed(() =>
   background: var(--color-bg);
   position: relative;
   border-left: 1px solid var(--color-border);
+  overflow-y: auto;
+}
+
+.map-content {
+  padding: 1rem;
 }
 
 .app-footer {
