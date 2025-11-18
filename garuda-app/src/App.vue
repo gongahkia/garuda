@@ -6,6 +6,7 @@ import AIVisualPlanner from './components/AIVisualPlanner.vue';
 import CollaborativeCursor from './components/CollaborativeCursor.vue';
 import PresenceIndicator from './components/PresenceIndicator.vue';
 import RouteOptimizer from './components/RouteOptimizer.vue';
+import TransportIntegration from './components/TransportIntegration.vue';
 
 const locations = ref([]);
 const currentLocationIndex = ref(-1);
@@ -115,6 +116,10 @@ const updateDirections = (directions) => {
           :locations="locations"
           @update-locations="updateLocationsFromOptimizer"
           @update-directions="updateDirections"
+        />
+
+        <TransportIntegration
+          :locations="locations"
         />
 
         <MapComponent
